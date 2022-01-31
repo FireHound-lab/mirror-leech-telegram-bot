@@ -181,7 +181,6 @@ def aria2c_init():
             aria2.remove([download], force=True, files=True)
     except Exception as e:
         logging.error(f"Aria2c initializing error: {e}")
-        pass
 
 if not ospath.isfile(".restartmsg"):
     sleep(1)
