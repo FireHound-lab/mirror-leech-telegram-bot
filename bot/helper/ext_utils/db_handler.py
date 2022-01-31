@@ -49,8 +49,7 @@ class DbManger:
     def db_load(self):
         # User Data
         self.cur.execute("SELECT * from users")
-        rows = self.cur.fetchall()  #returns a list ==> (uid, sudo, auth, media, doc, thumb)
-        if rows:
+        if rows := self.cur.fetchall():
             for row in rows:
                 if row[1] and row[0] not in SUDO_USERS:
                     SUDO_USERS.add(row[0])
@@ -70,8 +69,7 @@ class DbManger:
             LOGGER.info("Users data has been imported from Database")
         # Rss Data
         self.cur.execute("SELECT * FROM rss")
-        rows = self.cur.fetchall()  #returns a list ==> (name, feed_link, last_link, last_title, filters)
-        if rows:
+        if rows := self.cur.fetchall():
             for row in rows:
                 f_lists = []
                 if row[4] is not None:
@@ -173,8 +171,7 @@ class DbManger:
 
     def user_check(self, uid: int):
         self.cur.execute("SELECT * FROM users WHERE uid = {}".format(uid))
-        res = self.cur.fetchone()
-        return res
+        return self.cur.fetchone()
 
     def rss_add(self, name, link, last, title, filters):
         if self.err:
